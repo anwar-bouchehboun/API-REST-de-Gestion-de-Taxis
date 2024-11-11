@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: RidePilot
+  profiles:
+    active: prod 
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  liquibase:
+    change-log: classpath:/db/changelog/changelog.sql
+
+server:
+  port: 8086
