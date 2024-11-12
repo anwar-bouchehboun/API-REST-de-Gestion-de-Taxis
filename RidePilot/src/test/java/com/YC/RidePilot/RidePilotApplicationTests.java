@@ -1,13 +1,13 @@
-package com.YC.RidePilot;
+ package com.YC.RidePilot;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+ import org.junit.jupiter.api.Test;
+ import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class RidePilotApplicationTests {
+ @SpringBootTest
+ class RidePilotApplicationTests {
 
 	@Test
-	void contextLoads() {
-	}
+ 	void contextLoads() {
+ 	}
 
-}
+ }

@@ -2,13 +2,16 @@ spring:
   application:
     name: RidePilot
   profiles:
-    active: prod 
+    active: dev
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
   liquibase:
-    change-log: classpath:/db/changelog/changelog.sql
+    enabled: false
 
 server:
   port: 8086
