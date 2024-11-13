@@ -3,14 +3,12 @@ package com.YC.RidePilot.dao.impl;
 import com.YC.RidePilot.dao.ChauffeurAnalyticsDao;
 import com.YC.RidePilot.entity.Chauffeur;
 import com.YC.RidePilot.entity.dto.DisponibilitePlageDto;
-import com.YC.RidePilot.entity.mapper.ChauffeurMapper;
 import com.YC.RidePilot.enums.StatutChauffeur;
 import com.YC.RidePilot.repository.ChauffeurRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
