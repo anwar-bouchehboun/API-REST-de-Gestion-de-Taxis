@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class ChauffeurServices implements ChauffeurInterfaces {
 
     private final ChauffeurRepo chauffeurRepository;
-    private final ChauffeurMapper chauffeurMapper = ChauffeurMapper.INSTANCE;
+    private  ChauffeurMapper chauffeurMapper = ChauffeurMapper.INSTANCE;
     private final ChauffeurAnalyticsDao chauffeurAnalyticsDao;
 
     @Override
@@ -55,7 +55,7 @@ public class ChauffeurServices implements ChauffeurInterfaces {
             throw new ValidationException("L'ID du chauffeur ne peut pas être null pour la mise à jour");
         }
 
-        Chauffeur existingChauffeur = chauffeurRepository.findById(chauffeurDto.getId())
+      chauffeurRepository.findById(chauffeurDto.getId())
             .orElseThrow(() -> new ChauffeurNotFoundException("Chauffeur non trouvé avec l'ID: " + chauffeurDto.getId()));
 
         Chauffeur chauffeur = chauffeurMapper.toEntity(chauffeurDto);
@@ -125,12 +125,12 @@ public class ChauffeurServices implements ChauffeurInterfaces {
             ));
 
 
-
         return ChauffeurAnalyticsDto.builder()
             .tauxOccupation(tauxOccupation)
             .repartitionStatuts(repartitionStatuts)
             .repartitionParPlageHoraire(repartitionParPlageHoraire)
             .repartitionParPlageHorairefin(repartitionParPlageHoraireFin)
+                .disponibilitePlages(chauffeurAnalyticsDao.getDisponibilite())
             .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.YC.RidePilot.dao;
 
 import com.YC.RidePilot.entity.dto.ChauffeurDto;
+import com.YC.RidePilot.entity.dto.DisponibilitePlageDto;
 import com.YC.RidePilot.enums.StatutChauffeur;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,5 +12,5 @@ public interface ChauffeurAnalyticsDao {
     Map<StatutChauffeur, Long> getStatutDistribution();
     Map<LocalDateTime, Long> getDisponibiliteDistribution();
     Map<LocalDateTime, Long> getDisponibiliteDistributionfin();
-
+    List<DisponibilitePlageDto>getDisponibilite();
 }
