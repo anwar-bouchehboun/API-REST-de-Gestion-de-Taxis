@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/ridepilot
+    url: ${DB_URL_Qa}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password:
+    username: ${DB_USERNAME_Qa}
+    password: ${DB_PASSWORD_Qa}
   jpa:
     hibernate:
       ddl-auto: update

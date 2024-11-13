@@ -1,6 +1,8 @@
 package com.YC.RidePilot.entity;
 
 import com.YC.RidePilot.enums.StatutReservation;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -22,11 +24,20 @@ public class Reservation {
     @NotNull(message = "Date and time are required")
     private LocalDateTime dateHeure;
 
-    @NotNull(message = "Departure address is required")
-    private String adresseDepart;
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "ville", column = @Column(name = "depart_ville")),
+        @AttributeOverride(name = "quartier", column = @Column(name = "depart_quartier")),
 
-    @NotNull(message = "Arrival address is required")
-    private String adresseArrivee;
+    })
+    private Address adresseDepart;
+
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "ville", column = @Column(name = "arrivee_ville")),
+        @AttributeOverride(name = "quartier", column = @Column(name = "arrivee_quartier")),
+    })
+    private Address adresseArrivee;
 
     @NotNull(message = "Price is required")
     @Min(value = 0, message = "Price must be positive")
@@ -42,14 +53,13 @@ public class Reservation {
 
 
     @NotNull(message = "Availability start time is required")
+     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime heureDebutCourse;
 
     @NotNull(message = "Availability start time is required")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime heureFinCourse;
 
-
-    @Embedded
-    private Address adress;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chauffeur_id")

@@ -1,11 +1,13 @@
 package com.YC.RidePilot.entity.dto;
 
+import com.YC.RidePilot.entity.Vehicule;
 import com.YC.RidePilot.enums.StatutChauffeur;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,4 +37,5 @@ public class ChauffeurDto {
     @Future(message = "La date de fin doit être dans le futur")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime disponibiliteFin;
+
 }
