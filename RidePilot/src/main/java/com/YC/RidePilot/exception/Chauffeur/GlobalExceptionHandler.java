@@ -35,8 +35,8 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(ChauffeurNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleChauffeurNotFoundException(ChauffeurNotFoundException ex) {
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleChauffeurNotFoundException(NotFoundException ex) {
         log.error("Chauffeur non trouvé: {}", ex.getMessage());
         Map<String, String> errorResponse = Map.of(
             "error", "Chauffeur non trouvé",

@@ -8,7 +8,7 @@ import com.YC.RidePilot.entity.mapper.ChauffeurMapper;
 import com.YC.RidePilot.enums.StatutChauffeur;
 import com.YC.RidePilot.repository.ChauffeurRepo;
 import com.YC.RidePilot.services.InterfacesServices.ChauffeurInterfaces;
-import com.YC.RidePilot.exception.Chauffeur.ChauffeurNotFoundException;
+import com.YC.RidePilot.exception.Chauffeur.NotFoundException;
 import com.YC.RidePilot.exception.Chauffeur.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -56,7 +56,7 @@ public class ChauffeurServices implements ChauffeurInterfaces {
         }
 
       chauffeurRepository.findById(chauffeurDto.getId())
-            .orElseThrow(() -> new ChauffeurNotFoundException("Chauffeur non trouvé avec l'ID: " + chauffeurDto.getId()));
+            .orElseThrow(() -> new NotFoundException("Chauffeur non trouvé avec l'ID: " + chauffeurDto.getId()));
 
         Chauffeur chauffeur = chauffeurMapper.toEntity(chauffeurDto);
         chauffeurRepository.save(chauffeur);
@@ -66,7 +66,7 @@ public class ChauffeurServices implements ChauffeurInterfaces {
     @Override
     public void delete(Long id) {
         Chauffeur chauffeur = chauffeurRepository.findById(id)
-            .orElseThrow(() -> new ChauffeurNotFoundException("Chauffeur non trouvé avec l'ID : " + id));
+            .orElseThrow(() -> new NotFoundException("Chauffeur non trouvé avec l'ID : " + id));
         chauffeurRepository.delete(chauffeur);
     }
 

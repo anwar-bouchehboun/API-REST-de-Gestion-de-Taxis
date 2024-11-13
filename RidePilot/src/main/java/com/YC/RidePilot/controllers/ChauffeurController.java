@@ -8,6 +8,9 @@ import com.YC.RidePilot.services.InterfacesServices.ChauffeurInterfaces;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.*;
+import io.swagger.v3.oas.annotations.responses.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +23,11 @@ import java.util.List;
 public class ChauffeurController {
 
     private final ChauffeurInterfaces chauffeurInterfaces;
-
+    @Operation(summary = "Créer une nouvelle  chauffeur")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = " chauffeur créée avec succès", content = @Content(schema = @Schema(implementation = ChauffeurDto.class))),
+            @ApiResponse(responseCode = "400", description = "Erreur de validation")
+    })
     @PostMapping
     public ResponseEntity<ChauffeurDto> create(@Valid @RequestBody ChauffeurDto chauffeurDto) {
         log.info("Création d'un nouveau chauffeur");
@@ -29,7 +36,12 @@ public class ChauffeurController {
         }
         return ResponseEntity.ok(chauffeurInterfaces.create(chauffeurDto));
     }
-
+    @Operation(summary = "Mettre à jour une  chauffeur existante")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = " chauffeur mise à jour avec succès", content = @Content(schema = @Schema(implementation = ChauffeurDto.class))),
+            @ApiResponse(responseCode = "404", description = " chauffeur non trouvée"),
+            @ApiResponse(responseCode = "400", description = "Erreur de validation")
+    })
     @PutMapping("/{id}")
     public ResponseEntity<ChauffeurDto> update(@PathVariable Long id, @Valid @RequestBody ChauffeurDto chauffeurDto) {
         log.info("Mise à jour du chauffeur avec l'ID: {}", id);
@@ -42,7 +54,11 @@ public class ChauffeurController {
         chauffeurDto.setId(id);
         return ResponseEntity.ok(chauffeurInterfaces.update(chauffeurDto));
     }
-
+    @Operation(summary = "Supprimer une  chauffeur")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = " chauffeur supprimée avec succès"),
+            @ApiResponse(responseCode = "404", description = " chauffeur non trouvée")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.info("Suppression du chauffeur avec l'ID: {}", id);
@@ -52,13 +68,18 @@ public class ChauffeurController {
         chauffeurInterfaces.delete(id);
         throw new ClassSucesseExption("Classe supprimée avec succès : " + id);
     }
-
+    @Operation(summary = "Obtenir toutes les  chauffeurs")
+    @ApiResponse(responseCode = "200", description = "Liste de toutes les  chauffeurs", content = @Content(schema = @Schema(implementation = ChauffeurDto.class)))
     @GetMapping
     public ResponseEntity<List<ChauffeurDto>> getAll() {
         log.info("Récupération de tous les chauffeurs");
         return ResponseEntity.ok(chauffeurInterfaces.getAll());
     }
-
+    @Operation(summary = "Obtenir une chauffeur par ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "chauffeur trouvée", content = @Content(schema = @Schema(implementation = ChauffeurDto.class))),
+            @ApiResponse(responseCode = "404", description = "chauffeur non trouvée")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<ChauffeurDto> getById(@PathVariable Long id) {
         log.info("Récupération du chauffeur avec l'ID: {}", id);
@@ -66,7 +87,11 @@ public class ChauffeurController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+    @Operation(summary = "Rechercher une chauffeurs par nom")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Liste des chauffeurs correspondant au Nom ", content = @Content(schema = @Schema(implementation = ChauffeurDto.class))),
+            @ApiResponse(responseCode = "404", description = "nom non trouvée")
+    })
     @GetMapping("/search/{nom}")
     public ResponseEntity<List<ChauffeurDto>> searchByNom(@PathVariable  String nom) {
         log.info("Recherche des chauffeurs par nom: {}", nom);
@@ -79,6 +104,11 @@ public class ChauffeurController {
         return ResponseEntity.ok(chauffeurInterfaces.countChauffeurs());
     }
 
+    @Operation(summary = "Obtenir analytics chaffueurs")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Liste des chauffeurs analytics  ", content = @Content(schema = @Schema(implementation = ChauffeurDto.class))),
+            @ApiResponse(responseCode = "404", description = "analytics non trouvée")
+    })
     @GetMapping("/analytics")
     public ResponseEntity<ChauffeurAnalyticsDto> getAnalytics() {
         log.info("Récupération des analytics des chauffeurs");
