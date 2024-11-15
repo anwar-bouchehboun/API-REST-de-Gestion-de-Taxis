@@ -7,14 +7,16 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface ChauffeurMapper {
+public interface ChauffeurMapperDTO {
 
-    ChauffeurMapper INSTANCE = Mappers.getMapper(ChauffeurMapper.class);
+
+    ChauffeurMapperDTO INSTANCE = Mappers.getMapper(ChauffeurMapperDTO.class);
+
+
 
     @Mapping(target = "vehicule", ignore = true)
     Chauffeur toEntity(ChauffeurDto chauffeurDto);
 
     ChauffeurDto toDto(Chauffeur chauffeur);
-
 
 }

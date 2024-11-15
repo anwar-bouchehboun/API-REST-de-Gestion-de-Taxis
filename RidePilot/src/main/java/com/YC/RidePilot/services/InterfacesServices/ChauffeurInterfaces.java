@@ -14,4 +14,5 @@ public interface ChauffeurInterfaces {
     List<ChauffeurDto> findByNom(String nom);
     long countChauffeurs();
     ChauffeurAnalyticsDto getAnalytics();
+
 }

@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -60,13 +61,14 @@ public class ChauffeurController {
             @ApiResponse(responseCode = "404", description = " chauffeur non trouvée")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Long id) {
         log.info("Suppression du chauffeur avec l'ID: {}", id);
         if (id == null) {
             throw new ValidationException("L'ID du chauffeur ne peut pas être nul");
         }
         chauffeurInterfaces.delete(id);
-        throw new ClassSucesseExption("Classe supprimée avec succès : " + id);
+        return ResponseEntity.ok(Map.of("message", "L'ID du chauffeur " + id + " Supprimée avec succès"));
+
     }
     @Operation(summary = "Obtenir toutes les  chauffeurs")
     @ApiResponse(responseCode = "200", description = "Liste de toutes les  chauffeurs", content = @Content(schema = @Schema(implementation = ChauffeurDto.class)))

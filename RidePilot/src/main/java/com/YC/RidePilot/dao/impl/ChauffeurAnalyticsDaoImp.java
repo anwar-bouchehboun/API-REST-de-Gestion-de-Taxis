@@ -8,7 +8,10 @@ import com.YC.RidePilot.repository.ChauffeurRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -58,7 +61,15 @@ public class ChauffeurAnalyticsDaoImp implements ChauffeurAnalyticsDao {
 
     @Override
     public List<DisponibilitePlageDto> getDisponibilite() {
+        LocalDateTime startOfDay = LocalDate.now().atStartOfDay();
+        LocalDateTime endOfDay = LocalDate.now().atTime(LocalTime.MAX);
         return chauffeurRepository.findAll().stream()
+                .filter(chauffeur ->
+                        chauffeur.getDisponibiliteDebut().isAfter(startOfDay) &&
+                                chauffeur.getDisponibiliteDebut().isBefore(endOfDay) &&
+                                chauffeur.getDisponibiliteFin().isAfter(startOfDay) &&
+                                chauffeur.getDisponibiliteFin().isBefore(endOfDay))
+                .sorted(Comparator.comparing(Chauffeur::getDisponibiliteDebut))
                 .map(DisponibilitePlageDto::toDisponibilitePlageDto)
                 .collect(Collectors.toList());
 

@@ -4,7 +4,7 @@ import com.YC.RidePilot.dao.ChauffeurAnalyticsDao;
 import com.YC.RidePilot.entity.Chauffeur;
 import com.YC.RidePilot.entity.dto.ChauffeurAnalyticsDto;
 import com.YC.RidePilot.entity.dto.ChauffeurDto;
-import com.YC.RidePilot.entity.mapper.ChauffeurMapper;
+import com.YC.RidePilot.entity.mapper.ChauffeurMapperDTO;
 import com.YC.RidePilot.enums.StatutChauffeur;
 import com.YC.RidePilot.repository.ChauffeurRepo;
 import com.YC.RidePilot.services.InterfacesServices.ChauffeurInterfaces;
@@ -25,7 +25,8 @@ import java.util.stream.Collectors;
 public class ChauffeurServices implements ChauffeurInterfaces {
 
     private final ChauffeurRepo chauffeurRepository;
-    private  ChauffeurMapper chauffeurMapper = ChauffeurMapper.INSTANCE;
+
+    private  ChauffeurMapperDTO chauffeurMapper = ChauffeurMapperDTO.INSTANCE;
     private final ChauffeurAnalyticsDao chauffeurAnalyticsDao;
 
     @Override
@@ -133,4 +134,6 @@ public class ChauffeurServices implements ChauffeurInterfaces {
                 .disponibilitePlages(chauffeurAnalyticsDao.getDisponibilite())
             .build();
     }
+
+
 }
